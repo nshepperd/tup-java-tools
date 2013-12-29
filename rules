@@ -15,5 +15,5 @@ DX=$(ANDROID_HOME)/build-tools/$(ANDROID_TARGET_BUILD)/dx
 !dex = |> ^ DEX %o ^ $(DX) --dex --output %o %f |> 
 !apk = |> ^ APK %o ^ $(TOOLS_HOME)/apk.py -P $(AAPT) -I $(ANDROID_JAR) -o %o |>
 !genkey = |> ^ GEN %o ^ keytool -genkeypair -validity 10000 -dname "CN=company name, OU=organisational unit, O=organisation, L=location, S=state, C=country code" -keystore %o -storepass password -keypass password -alias debugkey -keyalg RSA -v |>
-!apksign = |> ^ SIGN %o ^ jarsigner -storepass password -keypass password -signedjar %o %f debugkey |>
+!apksign = |> ^ SIGN %o ^ jarsigner -sigalg MD5withRSA -digestalg SHA1 -storepass password -keypass password -signedjar %o %f debugkey |>
 !genres = |> ^ GEN %o ^ $(TOOLS_HOME)/gen-r-java.py -P $(AAPT) -o %o -I $(ANDROID_JAR) |>
